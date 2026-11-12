@@ -1,7 +1,10 @@
 import type { AuthPrincipal, Role } from '../../domain/user.ts';
 import { Errors } from '../../shared/errors.ts';
+import { safeEqual } from '../../shared/safe-compare.ts';
 import type { TokenService } from '../ports/token.service.ts';
 import type { UserRepository } from '../ports/user.repository.ts';
+
+const DUMMY_PASSWORD = 'dummy-password-for-timing';
 
 export interface LoginInput {
   username: string;
@@ -21,8 +24,8 @@ export class LoginUseCase {
 
   async execute({ username, password }: LoginInput): Promise<LoginOutput> {
     const user = await this.users.findByUsername(username);
-    // Mismo error si no existe o si la clave no coincide: no revela qué usuarios existen
-    if (!user || user.password !== password) throw Errors.invalidCredentials();
+    const passwordMatches = safeEqual(password, user?.password ?? DUMMY_PASSWORD);
+    if (!user || !passwordMatches) throw Errors.invalidCredentials();
 
     const principal: AuthPrincipal = {
       sub: user.id,

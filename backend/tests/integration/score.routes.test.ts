@@ -1,8 +1,10 @@
 import request from 'supertest';
 import { describe, expect, it } from 'vitest';
 import { createApp } from '../../src/app.ts';
+import { buildContainer } from '../../src/container.ts';
 
-const app = createApp();
+// Límite alto: estos tests no verifican el rate limit y hacen varios logins seguidos.
+const app = createApp(buildContainer({ loginRateLimit: { max: 1000, windowMs: 60_000 } }));
 const USER_RUT = '12.345.678-5';
 const OTHER_RUT = '11.111.111-1';
 

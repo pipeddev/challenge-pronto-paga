@@ -19,6 +19,7 @@ describe('AppError / Errors', () => {
     ['tokenExpired', 'TOKEN_EXPIRED'],
     ['forbiddenRut', 'FORBIDDEN_RUT'],
     ['notFound', 'NOT_FOUND'],
+    ['tooManyRequests', 'TOO_MANY_REQUESTS'],
   ] as const)('Errors.%s() crea un AppError con código %s', (factory, code) => {
     const err = Errors[factory]();
 

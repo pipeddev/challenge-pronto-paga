@@ -7,8 +7,16 @@ import { authenticate } from './infrastructure/http/middlewares/authenticate.ts'
 import { GetScoreUseCase } from './application/use-cases/get-score.use-case.ts';
 import { ScoreController } from './infrastructure/http/controllers/score.controller.ts';
 import { HashScoreProvider } from './infrastructure/scoring/hash-score.provider.ts';
+import {
+  loginRateLimit,
+  type LoginRateLimitOptions,
+} from './infrastructure/http/middlewares/login-rate-limit.ts';
 
-export const buildContainer = () => {
+export interface ContainerOptions {
+  loginRateLimit?: LoginRateLimitOptions;
+}
+
+export const buildContainer = (options: ContainerOptions = {}) => {
   const userRepository = new InMemoryUserRepository();
   const tokenService = new JwtTokenService(env.jwtSecret, env.jwtExpiresIn);
   const getScoreUseCase = new GetScoreUseCase(new HashScoreProvider());
@@ -19,6 +27,7 @@ export const buildContainer = () => {
     authController: new AuthController(loginUseCase),
     scoreController: new ScoreController(getScoreUseCase),
     authenticate: authenticate(tokenService),
+    loginRateLimit: loginRateLimit(options.loginRateLimit ?? env.loginRateLimit),
   };
 };
 
