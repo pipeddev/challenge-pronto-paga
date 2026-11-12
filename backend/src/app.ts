@@ -4,6 +4,7 @@ import { env } from './config/env.ts';
 import { buildContainer, type Container } from './container.ts';
 import { errorHandler, notFoundHandler } from './infrastructure/http/middlewares/error-handler.ts';
 import { authRoutes } from './infrastructure/http/routes/auth.routes.ts';
+import { scoreRoutes } from './infrastructure/http/routes/score.routes.ts';
 
 export const createApp = (container: Container = buildContainer()) => {
   const app = express();
@@ -20,6 +21,7 @@ export const createApp = (container: Container = buildContainer()) => {
   });
 
   app.use(authRoutes(container.authController));
+  app.use(scoreRoutes(container.scoreController, container.authenticate));
 
   app.use(notFoundHandler);
   app.use(errorHandler);
