@@ -35,10 +35,6 @@ export function LoginPage() {
           {loading ? 'Ingresando…' : 'Ingresar'}
         </button>
       </form>
-
-      <p className="hint">
-        Demo: <code>admin / admin123</code> · <code>user / user123</code>
-      </p>
     </main>
   );
 }

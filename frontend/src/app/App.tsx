@@ -1,14 +1,7 @@
 import { LoginPage, useAuth } from '../features/auth/index.ts';
+import { ScorePage } from '../features/score/index.ts';
 
 export default function App() {
-  const { session, logout } = useAuth();
-  if (!session) return <LoginPage />;
-  return (
-    <main className="card">
-      <p>
-        Hola {session.user.username} ({session.user.role})
-      </p>
-      <button onClick={logout}>Cerrar sesión</button>
-    </main>
-  );
+  const { session } = useAuth();
+  return session ? <ScorePage /> : <LoginPage />;
 }
