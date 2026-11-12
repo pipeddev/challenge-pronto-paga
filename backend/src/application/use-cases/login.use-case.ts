@@ -1,7 +1,7 @@
-import type { AuthPrincipal, Role } from "../../domain/user.ts";
-import { Errors } from "../../shared/errors.js";
-import type { TokenService } from "../ports/token.service.js";
-import type { UserRepository } from "../ports/user.repository.js";
+import type { AuthPrincipal, Role } from '../../domain/user.ts';
+import { Errors } from '../../shared/errors.ts';
+import type { TokenService } from '../ports/token.service.ts';
+import type { UserRepository } from '../ports/user.repository.ts';
 
 export interface LoginInput {
   username: string;
@@ -27,7 +27,7 @@ export class LoginUseCase {
     const principal: AuthPrincipal = {
       sub: user.id,
       role: user.role,
-      ...(user.role === "user" && user.rut ? { rut: user.rut } : {}),
+      ...(user.role === 'user' && user.rut ? { rut: user.rut } : {}),
     };
 
     return {

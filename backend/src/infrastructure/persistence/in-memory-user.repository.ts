@@ -1,14 +1,14 @@
-import type { UserRepository } from "../../application/ports/user.repository.js";
-import type { User } from "../../domain/user.js";
+import type { UserRepository } from '../../application/ports/user.repository.ts';
+import type { User } from '../../domain/user.ts';
 
 const SEED: User[] = [
-  { id: "u-001", username: "admin", password: "admin123", role: "admin" },
+  { id: 'u-001', username: 'admin', password: 'admin123', role: 'admin' },
   {
-    id: "u-002",
-    username: "user",
-    password: "user123",
-    role: "user",
-    rut: "12.345.678-5",
+    id: 'u-002',
+    username: 'user',
+    password: 'user123',
+    role: 'user',
+    rut: '12.345.678-5',
   },
 ];
 

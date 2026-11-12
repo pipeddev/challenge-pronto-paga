@@ -1,5 +1,5 @@
-import type { NextFunction, Request, Response } from "express";
-import { AppError, Errors, type ErrorCode } from "../../../shared/errors.ts";
+import type { NextFunction, Request, Response } from 'express';
+import { AppError, Errors, type ErrorCode } from '../../../shared/errors.ts';
 
 const STATUS_BY_CODE: Record<ErrorCode, number> = {
   BAD_REQUEST: 400,
@@ -12,11 +12,7 @@ const STATUS_BY_CODE: Record<ErrorCode, number> = {
   NOT_FOUND: 404,
 };
 
-export const notFoundHandler = (
-  _req: Request,
-  _res: Response,
-  next: NextFunction,
-): void => {
+export const notFoundHandler = (_req: Request, _res: Response, next: NextFunction): void => {
   next(Errors.notFound());
 };
 
@@ -27,19 +23,15 @@ export const errorHandler = (
   _next: NextFunction,
 ): void => {
   if (err instanceof AppError) {
-    res
-      .status(STATUS_BY_CODE[err.code])
-      .json({ error: { code: err.code, message: err.message } });
+    res.status(STATUS_BY_CODE[err.code]).json({ error: { code: err.code, message: err.message } });
     return;
   }
-  if (err instanceof SyntaxError && "body" in err) {
-    res
-      .status(400)
-      .json({ error: { code: "BAD_REQUEST", message: "JSON inválido" } });
+  if (err instanceof SyntaxError && 'body' in err) {
+    res.status(400).json({ error: { code: 'BAD_REQUEST', message: 'JSON inválido' } });
     return;
   }
   console.error(err);
   res.status(500).json({
-    error: { code: "INTERNAL_ERROR", message: "Error interno del servidor" },
+    error: { code: 'INTERNAL_ERROR', message: 'Error interno del servidor' },
   });
 };
