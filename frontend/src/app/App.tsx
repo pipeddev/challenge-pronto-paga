@@ -1,5 +1,4 @@
-import { useAuth } from './features/auth/useAuth.ts';
-import { LoginPage } from './features/auth/LoginPage.tsx';
+import { LoginPage, useAuth } from '../features/auth/index.ts';
 
 export default function App() {
   const { session, logout } = useAuth();

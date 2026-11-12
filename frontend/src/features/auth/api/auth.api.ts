@@ -1,4 +1,4 @@
-import { httpRequest } from './http-client.ts';
+import { httpRequest } from '../../../shared/api/http-client.ts';
 
 export type Role = 'admin' | 'user';
 

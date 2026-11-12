@@ -1,27 +1,9 @@
-import { useState, type SubmitEvent } from 'react';
-import { ApiError } from '../../api/http-client.ts';
-import { Alert } from '../../shared/components/Alert.tsx';
-import { useAuth } from './useAuth.ts';
+import { Alert } from '../../../shared/components/Alert.tsx';
+import { useLoginForm } from '../hooks/useLoginForm.ts';
 
 export function LoginPage() {
-  const { login } = useAuth();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError(null);
-    setLoading(true);
-    try {
-      await login(username.trim(), password);
-    } catch (err) {
-      setError(err instanceof ApiError ? err.message : 'No se pudo iniciar sesión');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { username, setUsername, password, setPassword, error, loading, canSubmit, handleSubmit } =
+    useLoginForm();
 
   return (
     <main className="card">
@@ -49,7 +31,7 @@ export function LoginPage() {
 
         {error && <Alert type="error" message={error} />}
 
-        <button type="submit" disabled={loading || !username || !password}>
+        <button type="submit" disabled={!canSubmit}>
           {loading ? 'Ingresando…' : 'Ingresar'}
         </button>
       </form>
