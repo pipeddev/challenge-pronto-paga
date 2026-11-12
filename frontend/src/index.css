@@ -64,6 +64,15 @@ input:focus {
   outline: 2px solid #2563eb;
   border-color: transparent;
 }
+input:read-only {
+  background: #f1f5f9;
+  color: #64748b;
+  cursor: not-allowed;
+}
+input:read-only:focus {
+  outline: none;
+  border-color: #cbd5e1;
+}
 
 button {
   padding: 11px;
