@@ -1,0 +1,174 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08);
+}
+
+h1 {
+  font-size: 1.4rem;
+  margin: 0 0 4px;
+}
+.muted {
+  color: #64748b;
+  margin: 0 0 20px;
+  font-size: 0.95rem;
+}
+.hint {
+  color: #94a3b8;
+  font-size: 0.85rem;
+  margin-top: 16px;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+input {
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+input:focus {
+  outline: 2px solid #2563eb;
+  border-color: transparent;
+}
+
+button {
+  padding: 11px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+button.link {
+  background: none;
+  color: #2563eb;
+  padding: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.alert {
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+.alert-error {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+.alert-info {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.badge {
+  margin-left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+.badge-admin {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+.badge-user {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.result {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  border: 1px solid;
+}
+.result .score {
+  display: block;
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.result .level {
+  display: block;
+  margin: 6px 0 14px;
+  font-weight: 600;
+}
+.result dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+  margin: 0;
+  text-align: left;
+  font-size: 0.9rem;
+}
+.result dt {
+  color: #64748b;
+}
+.result dd {
+  margin: 0;
+}
+.low {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+  color: #15803d;
+}
+.medium {
+  background: #fffbeb;
+  border-color: #fde68a;
+  color: #b45309;
+}
+.high {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #b91c1c;
+}
