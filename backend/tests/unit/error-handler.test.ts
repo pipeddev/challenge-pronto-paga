@@ -46,6 +46,7 @@ describe('errorHandler', () => {
     ['TOKEN_EXPIRED', 401],
     ['FORBIDDEN_RUT', 403],
     ['NOT_FOUND', 404],
+    ['TOO_MANY_REQUESTS', 429],
   ])('mapea %s a HTTP %i', (code, status) => {
     const res = run(new AppError(code, 'msg'));
 

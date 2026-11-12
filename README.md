@@ -87,6 +87,7 @@ Todas las respuestas de error tienen la forma `{ "error": { "code", "message" } 
 | 401    | `INVALID_CREDENTIALS`                             | Login fallido                     |
 | 401    | `MISSING_TOKEN`, `INVALID_TOKEN`, `TOKEN_EXPIRED` | Problemas con el JWT              |
 | 403    | `FORBIDDEN_RUT`                                   | Rol user consultando un RUT ajeno |
+| 429    | `TOO_MANY_REQUESTS`                               | Demasiados intentos de login      |
 
 ## Reglas de negocio
 
@@ -148,6 +149,9 @@ src/
 - **Token en `sessionStorage`:** es simple para el MVP. En producción usaría una cookie `httpOnly` + `SameSite` para mitigar XSS.
 - **Algoritmo fijo `HS256`** al firmar y verificar, para evitar ataques de confusión de algoritmo.
 - Mismo error para usuario inexistente y contraseña incorrecta, para no permitir enumerar usuarios.
+- **Comparación de contraseñas en tiempo constante** (`crypto.timingSafeEqual` sobre el SHA-256 de ambos valores). Así no lanza con largos distintos ni filtra el largo. Si el usuario no existe, igual se compara contra un valor señuelo para que el tiempo de respuesta no lo delate.
+- **Rate limit en `POST /login`** con `express-rate-limit`: 5 intentos por IP cada 15 minutos, configurable con `LOGIN_RATE_LIMIT_MAX` y `LOGIN_RATE_LIMIT_WINDOW_MS`. Al exceder responde `429 TOO_MANY_REQUESTS`. El contador vive en memoria, así que con varias instancias usaría un store compartido (Redis). Detrás de un proxy hay que configurar `trust proxy` para tomar la IP real.
+- **Headers de seguridad con `helmet`:** `X-Content-Type-Options`, `Strict-Transport-Security`, `Content-Security-Policy`, `X-Frame-Options`, entre otros.
 
 ## Flujo de trabajo
 

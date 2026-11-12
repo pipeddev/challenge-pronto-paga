@@ -2,9 +2,11 @@ import jwt, { type JwtPayload } from 'jsonwebtoken';
 import request from 'supertest';
 import { describe, expect, it } from 'vitest';
 import { createApp } from '../../src/app.ts';
+import { buildContainer } from '../../src/container.ts';
 import { env } from '../../src/config/env.ts';
 
-const app = createApp();
+// Límite alto: estos tests no verifican el rate limit y hacen varios logins seguidos.
+const app = createApp(buildContainer({ loginRateLimit: { max: 1000, windowMs: 60_000 } }));
 
 describe('HTTP /login', () => {
   it('GET /health responde ok', async () => {

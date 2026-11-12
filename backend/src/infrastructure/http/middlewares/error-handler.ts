@@ -10,6 +10,7 @@ const STATUS_BY_CODE: Record<ErrorCode, number> = {
   TOKEN_EXPIRED: 401,
   FORBIDDEN_RUT: 403,
   NOT_FOUND: 404,
+  TOO_MANY_REQUESTS: 429,
 };
 
 export const notFoundHandler = (_req: Request, _res: Response, next: NextFunction): void => {

@@ -6,7 +6,8 @@ export type ErrorCode =
   | 'INVALID_TOKEN'
   | 'TOKEN_EXPIRED'
   | 'FORBIDDEN_RUT'
-  | 'NOT_FOUND';
+  | 'NOT_FOUND'
+  | 'TOO_MANY_REQUESTS';
 
 export class AppError extends Error {
   constructor(
@@ -27,4 +28,6 @@ export const Errors = {
   tokenExpired: () => new AppError('TOKEN_EXPIRED', 'La sesión expiró, vuelve a iniciar sesión'),
   forbiddenRut: () => new AppError('FORBIDDEN_RUT', 'No tienes permiso para consultar este RUT'),
   notFound: () => new AppError('NOT_FOUND', 'Recurso no encontrado'),
+  tooManyRequests: () =>
+    new AppError('TOO_MANY_REQUESTS', 'Demasiados intentos, intenta más tarde'),
 };
