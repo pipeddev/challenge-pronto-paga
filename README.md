@@ -42,6 +42,26 @@ pnpm typecheck
 | admin   | admin123   | admin | —            |
 | user    | user123    | user  | 12.345.678-5 |
 
+Body para `POST /login`:
+
+**user**
+
+```json
+{
+  "username": "user",
+  "password": "user123"
+}
+```
+
+**admin**
+
+```json
+{
+  "username": "admin",
+  "password": "admin123"
+}
+```
+
 ## API
 
 | Método | Ruta          | Auth   | Descripción                                       |
@@ -128,3 +148,8 @@ src/
 - **Token en `sessionStorage`:** es simple para el MVP. En producción usaría una cookie `httpOnly` + `SameSite` para mitigar XSS.
 - **Algoritmo fijo `HS256`** al firmar y verificar, para evitar ataques de confusión de algoritmo.
 - Mismo error para usuario inexistente y contraseña incorrecta, para no permitir enumerar usuarios.
+
+## Flujo de trabajo
+
+GitFlow: `feat/*` → `develop` → `release/x.y.z` → `main` (con tag) y back-merge a `develop`.
+CI (GitHub Actions) valida cada push a `main`, `develop` y `release/*`, y cada PR.
