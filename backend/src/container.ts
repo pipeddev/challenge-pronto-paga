@@ -1,8 +1,9 @@
-import { LoginUseCase } from "./application/use-cases/login.use-case.js";
-import { env } from "./config/env.js";
-import { AuthController } from "./infrastructure/http/controllers/auth.controller.js";
-import { InMemoryUserRepository } from "./infrastructure/persistence/in-memory-user.repository.js";
-import { JwtTokenService } from "./infrastructure/security/jwt-token.service.js";
+import { LoginUseCase } from './application/use-cases/login.use-case.ts';
+import { env } from './config/env.ts';
+import { AuthController } from './infrastructure/http/controllers/auth.controller.ts';
+import { InMemoryUserRepository } from './infrastructure/persistence/in-memory-user.repository.ts';
+import { JwtTokenService } from './infrastructure/security/jwt-token.service.ts';
+import { authenticate } from './infrastructure/http/middlewares/authenticate.ts';
 
 export const buildContainer = () => {
   const userRepository = new InMemoryUserRepository();
@@ -12,6 +13,7 @@ export const buildContainer = () => {
 
   return {
     authController: new AuthController(loginUseCase),
+    authenticate: authenticate(tokenService),
   };
 };
 
