@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState, type ReactNode } from 'react';
-import { authApi } from '../../api/auth.api.ts';
+import { authApi } from '../api/auth.api.ts';
 import { AuthContext, type Session } from './auth-context.ts';
 
 const STORAGE_KEY = 'risk-score-session';

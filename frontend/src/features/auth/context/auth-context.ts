@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import type { AuthUser } from '../../api/auth.api.ts';
+import type { AuthUser } from '../api/auth.api.ts';
 
 export interface Session {
   token: string;
